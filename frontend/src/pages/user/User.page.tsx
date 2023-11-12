@@ -6,7 +6,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { PrimeButton, primeConfirmDialog, PrimeConfirmDialog, PrimeDialog, PrimeToast } from "../../imports/prime-react";
 
 // Shared Components
-import { HeroImageComponent } from "../../components/shared";
+import { HeroImageComponent, TitleComponent } from "../../components/shared";
 
 // Own Components
 import { ChangePasswordFormComponent, EditFormComponent, UserDataComponent, UserOptionComponent } from "../../components/user";
@@ -172,7 +172,7 @@ export default function User(): JSX.Element {
 
 			<PrimeConfirmDialog />
 
-			<HeroImageComponent text={`${userAuthenticated?.firstName} ${userAuthenticated?.lastName}`} imageSrc="user/user-background_trpz3q" />
+			<TitleComponent title={`${userAuthenticated?.firstName} ${userAuthenticated?.lastName}`} />
 
 			<h1 className="font-bold text-4xl text-center mb-10">Datos personales</h1>
 

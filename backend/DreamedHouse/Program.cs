@@ -11,37 +11,36 @@ var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJwtBearer(options =>
 {
-	options.TokenValidationParameters = new TokenValidationParameters
-	{
-		ValidateIssuerSigningKey = true,
-		IssuerSigningKey = new SymmetricSecurityKey(System.Text.Encoding.UTF8.GetBytes(builder.Configuration.GetSection("AppSettings:Token").Value!)),
-		ValidateIssuer = false,
-		ValidateAudience = false
-	};
+    options.TokenValidationParameters = new TokenValidationParameters
+    {
+        ValidateIssuerSigningKey = true,
+        IssuerSigningKey = new SymmetricSecurityKey(System.Text.Encoding.UTF8.GetBytes(builder.Configuration.GetSection("AppSettings:Token").Value!)),
+        ValidateIssuer = false,
+        ValidateAudience = false
+    };
 });
 
-builder.Services.AddCors();
-
-// builder.Services.AddControllers();
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("AllowAny", builder => builder
+        .AllowAnyOrigin()
+        .AllowAnyMethod()
+        .AllowAnyHeader());
+});
 
 builder.Services.AddSwaggerGen(x =>
 {
-	x.OperationFilter<SecurityRequirementsOperationFilter>();
+    x.OperationFilter<SecurityRequirementsOperationFilter>();
 
-	x.AddSecurityDefinition("oauth2", new OpenApiSecurityScheme
-	{
-		Description = "Authorization: Use Bearer this way \"Bearer {token}\"",
-		Name = "Authorization",
-		In = ParameterLocation.Header,
-		Type = SecuritySchemeType.ApiKey,
-		Scheme = "Bearer"
-	});
+    x.AddSecurityDefinition("oauth2", new OpenApiSecurityScheme
+    {
+        Description = "Authorization: Use Bearer this way \"Bearer {token}\"",
+        Name = "Authorization",
+        In = ParameterLocation.Header,
+        Type = SecuritySchemeType.ApiKey,
+        Scheme = "Bearer"
+    });
 });
-
-// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
-builder.Services.AddEndpointsApiExplorer();
-
-builder.Services.AddSwaggerGen();
 
 builder.Services.AddControllers().AddNewtonsoftJson(options => options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore);
 
@@ -52,16 +51,15 @@ var app = builder.Build();
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
-	app.UseSwagger();
-	app.UseSwaggerUI();
+    app.UseSwagger();
+    app.UseSwaggerUI();
 }
 
-app.UseHttpsRedirection();
+// Redirect HTTP to HTTPS (if using HTTPS)
+// Ensure your certificate is properly configured on the server.
+// app.UseHttpsRedirection();
 
-app.UseCors(x => x.AllowAnyOrigin()
-	.AllowAnyMethod()
-	.AllowAnyHeader()
-);
+app.UseCors("AllowAny");
 
 app.UseAuthentication();
 
@@ -70,3 +68,4 @@ app.UseAuthorization();
 app.MapControllers();
 
 app.Run();
+
