@@ -1,4 +1,4 @@
-USE `bqyqs8god8id9q92l0p5`;
+USE `casa_deseada`;
 
 INSERT INTO
 	`houses`
@@ -40,9 +40,9 @@ VALUES
 		4,
 		'Casa Primavera',
 		140,
-		4,
 		3,
-		5,
+		2,
+		3,
 		90000.00,
 		'2023-02-05 07:14:03',
 		'2023-02-05 07:14:03'
