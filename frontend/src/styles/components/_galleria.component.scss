@@ -1,0 +1,22 @@
+.galleria {
+	@apply height-transition h-40 2xs:h-52 xs:h-60 sm:h-72 md:h-96 lg:h-80 xl:h-96 2xl:h-[35rem];
+
+	.p-galleria-content,
+	.p-galleria-item-wrapper {
+		@apply h-full;
+	}
+
+	.p-galleria-item-container {
+		& > .p-galleria-item-nav {
+			@apply w-10 h-10 -translate-y-1/2 border border-black;
+
+			&:not(.p-disabled):focus {
+				@apply ring-0;
+			}
+
+			& > span {
+				@apply text-primary-color;
+			}
+		}
+	}
+}

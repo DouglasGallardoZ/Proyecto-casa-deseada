@@ -1,0 +1,52 @@
+// TailwindCSS
+@import "tailwindcss/base";
+@import "tailwindcss/components";
+@import "tailwindcss/utilities";
+
+@layer components {
+	.responsive-container {
+		@apply container mx-auto px-3;
+	}
+}
+
+@layer utilities {
+	.background-color-transition {
+		transition: background-color 0.2s;
+	}
+
+	.border-transition {
+		transition: border 0.2s;
+	}
+
+	.font-transition {
+		transition: font-size 0.2s, line-height 0.2s;
+	}
+
+	.height-transition {
+		transition: height 0.2s, max-height 0.2s;
+	}
+
+	.shadow-transition {
+		transition: box-shadow 0.2s;
+	}
+
+	.width-transition {
+		transition: width 0.2s, max-width 0.2s;
+	}
+}
+
+:root {
+	--primary-color: #f59e0b;
+}
+
+html {
+	box-sizing: border-box;
+}
+
+*,
+::after,
+::before {
+	box-sizing: inherit;
+
+	@apply break-all;
+}
