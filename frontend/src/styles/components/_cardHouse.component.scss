@@ -1,0 +1,37 @@
+.card-house {
+	@apply bg-gray-100 hover:shadow-lg;
+
+	.p-card-footer {
+		@apply xs:text-right;
+	}
+
+	.card-footer-link {
+		@apply inline-block w-full xs:w-max;
+
+		& > button {
+			@apply w-full flex justify-center xs:w-max;
+
+			& > span {
+				@apply flex-none;
+			}
+		}
+	}
+}
+
+@media (min-width: 640px) {
+	.card {
+		flex-basis: calc(50% - 10px);
+	}
+}
+
+@media (min-width: 1024px) {
+	.card {
+		flex-basis: calc((100% / 3) - 13.4px);
+	}
+}
+
+@media (min-width: 1280px) {
+	.card {
+		flex-basis: calc(25% - 15px);
+	}
+}

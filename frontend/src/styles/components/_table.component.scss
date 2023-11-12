@@ -1,0 +1,5 @@
+@media screen and (max-width: 425px) {
+	.p-datatable[null] .p-datatable-tbody > tr > td {
+		@apply flex-col;
+	}
+}

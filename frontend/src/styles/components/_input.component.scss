@@ -1,0 +1,17 @@
+.input {
+	@apply w-full;
+}
+
+.input-text {
+	@apply p-2 enabled:focus:shadow-none enabled:focus:border-secondary-color enabled:hover:border-secondary-color;
+}
+
+.input-password {
+	.p-password-input {
+		@apply w-full py-2 pl-2 enabled:focus:shadow-none enabled:focus:border-secondary-color enabled:hover:border-secondary-color;
+	}
+
+	i {
+		@apply cursor-pointer;
+	}
+}
