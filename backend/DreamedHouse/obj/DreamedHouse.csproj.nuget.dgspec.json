@@ -1,20 +1,20 @@
 {
   "format": 1,
   "restore": {
-    "/home/dgallardo/Documents/UNIVERSIDAD/PROYECTO/dreamed-house-project-main/backend/DreamedHouse/DreamedHouse.csproj": {}
+    "/home/ubuntu/Proyecto/Proyecto-casa-deseada/backend/DreamedHouse/DreamedHouse.csproj": {}
   },
   "projects": {
-    "/home/dgallardo/Documents/UNIVERSIDAD/PROYECTO/dreamed-house-project-main/backend/DreamedHouse/DreamedHouse.csproj": {
+    "/home/ubuntu/Proyecto/Proyecto-casa-deseada/backend/DreamedHouse/DreamedHouse.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "/home/dgallardo/Documents/UNIVERSIDAD/PROYECTO/dreamed-house-project-main/backend/DreamedHouse/DreamedHouse.csproj",
+        "projectUniqueName": "/home/ubuntu/Proyecto/Proyecto-casa-deseada/backend/DreamedHouse/DreamedHouse.csproj",
         "projectName": "DreamedHouse",
-        "projectPath": "/home/dgallardo/Documents/UNIVERSIDAD/PROYECTO/dreamed-house-project-main/backend/DreamedHouse/DreamedHouse.csproj",
-        "packagesPath": "/home/dgallardo/.nuget/packages/",
-        "outputPath": "/home/dgallardo/Documents/UNIVERSIDAD/PROYECTO/dreamed-house-project-main/backend/DreamedHouse/obj/",
+        "projectPath": "/home/ubuntu/Proyecto/Proyecto-casa-deseada/backend/DreamedHouse/DreamedHouse.csproj",
+        "packagesPath": "/home/ubuntu/.nuget/packages/",
+        "outputPath": "/home/ubuntu/Proyecto/Proyecto-casa-deseada/backend/DreamedHouse/obj/",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "/home/dgallardo/.nuget/NuGet/NuGet.Config"
+          "/home/ubuntu/.nuget/NuGet/NuGet.Config"
         ],
         "originalTargetFrameworks": [
           "net7.0"
@@ -106,7 +106,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "/usr/lib64/dotnet/sdk/7.0.112/RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "/usr/lib/dotnet/sdk/7.0.113/RuntimeIdentifierGraph.json"
         }
       }
     }
