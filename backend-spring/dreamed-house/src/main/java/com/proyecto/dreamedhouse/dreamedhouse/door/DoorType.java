@@ -1,22 +1,28 @@
 package com.proyecto.dreamedhouse.dreamedhouse.door;
 
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import javax.persistence.*;
+
 
 import java.util.Date;
 
-import jakarta.persistence.Entity;
-
 @Entity
+@Table(name = "door_types")
 public class DoorType {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "door_type_id")
     private Long doorTypeId;
 
+    @Column(name = "name")
     private String name;
+
+    @Column(name = "price")
     private double price;
+
+    @Column(name = "created_at")
     private Date createdAt;
+
+    @Column(name = "update_at")
     private Date updatedAt;
 
     public Date getCreatedAt() {

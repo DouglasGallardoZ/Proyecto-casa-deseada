@@ -1,0 +1,39 @@
+package com.proyecto.dreamedhouse.dreamedhouse.faucet;
+
+import com.proyecto.dreamedhouse.dreamedhouse.door.DoorType;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
+
+/**
+ * Class {@code FaucetTypeController} sets the endpoints to work with the Faucet Type entity
+ */
+@RestController
+@RequestMapping("/api/FaucetType")
+public class FaucetTypeController {
+
+    private final FaucetTypeRepository faucetTypeRepository;
+
+    @Autowired
+    public FaucetTypeController(FaucetTypeRepository faucetTypeRepository) {
+        this.faucetTypeRepository = faucetTypeRepository;
+    }
+
+    // GET: /api/FaucetType
+
+    @GetMapping
+    public ResponseEntity<List<FaucetType>> getFaucetTypes() {
+        List<FaucetType> faucetTypes = faucetTypeRepository.findAll();
+        return ResponseEntity.ok(faucetTypes);
+    }
+
+    @GetMapping("/{faucetTypeId}")
+    public ResponseEntity<FaucetType> getFaucetType(@PathVariable Long faucetTypeId) {
+        return faucetTypeRepository.findById(faucetTypeId)
+                .map(ResponseEntity::ok)
+                .orElse(ResponseEntity.notFound().build());
+    }
+}
