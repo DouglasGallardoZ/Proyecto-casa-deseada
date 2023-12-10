@@ -1,17 +1,14 @@
 package com.proyecto.dreamedhouse.dreamedhouse.auth;
-import java.security.Key;
-import java.util.Date;
-import java.util.List;
-import java.util.stream.Collectors;
 
 import com.proyecto.dreamedhouse.dreamedhouse.JsonUtil;
 import com.proyecto.dreamedhouse.dreamedhouse.user.User;
 import com.proyecto.dreamedhouse.dreamedhouse.user.UserRepository;
+import io.jsonwebtoken.Claims;
+import io.jsonwebtoken.Jwts;
+import io.jsonwebtoken.SignatureAlgorithm;
 import io.jsonwebtoken.security.Keys;
-import org.hibernate.annotations.Parameter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.data.repository.query.Param;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -20,9 +17,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import io.jsonwebtoken.Claims;
-import io.jsonwebtoken.Jwts;
-import io.jsonwebtoken.SignatureAlgorithm;
+import java.security.Key;
+import java.util.Date;
 
 @RestController
 @RequestMapping("/api/AuthUser")

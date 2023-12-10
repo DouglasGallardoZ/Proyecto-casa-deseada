@@ -1,8 +1,6 @@
 package com.proyecto.dreamedhouse.dreamedhouse.door;
 
 import javax.persistence.*;
-
-
 import java.util.Date;
 
 @Entity
