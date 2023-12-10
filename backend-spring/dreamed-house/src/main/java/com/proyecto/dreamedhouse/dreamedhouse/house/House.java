@@ -1,5 +1,6 @@
 package com.proyecto.dreamedhouse.dreamedhouse.house;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.proyecto.dreamedhouse.dreamedhouse.house_image.HouseImage;
 
 import javax.persistence.*;
@@ -45,7 +46,8 @@ public class House {
     @Column(name = "updated_at", nullable = false)
     private Date updatedAt;
 
-    @OneToMany(mappedBy = "house", cascade = CascadeType.ALL, orphanRemoval = true)
+    @JsonManagedReference
+    @OneToMany(mappedBy = "house", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
     private List<HouseImage> houseImages = new ArrayList<>();
 
     public List<HouseImage> getHouseImages() {

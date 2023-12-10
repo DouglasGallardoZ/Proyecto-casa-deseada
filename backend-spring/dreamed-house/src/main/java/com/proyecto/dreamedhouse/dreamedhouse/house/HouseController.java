@@ -2,6 +2,7 @@ package com.proyecto.dreamedhouse.dreamedhouse.house;
 
 import com.proyecto.dreamedhouse.dreamedhouse.faucet.FaucetType;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -18,7 +19,7 @@ public class HouseController {
     }
 
     @GetMapping
-    public ResponseEntity<List<House>> getHouses() {
+    public ResponseEntity<List<House>> getHouses() throws Exception{
         List<House> houses = houseRepository.findAll();
         return ResponseEntity.ok(houses);
     }
@@ -29,4 +30,27 @@ public class HouseController {
                 .map(ResponseEntity::ok)
                 .orElse(ResponseEntity.notFound().build());
     }
+
+    /*@GetMapping
+    public ResponseEntity<List<HouseProjection>> getHouses() {
+        List<HouseProjection> houses = houseRepository.findAllProjectedBy();
+
+        if (!houses.isEmpty()) {
+            return new ResponseEntity<>(houses, HttpStatus.OK);
+        } else {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+
+    }
+
+    @GetMapping("/{houseId}")
+    public ResponseEntity<HouseProjection> getHouse(@PathVariable Long houseId) {
+        HouseProjection house = houseRepository.findProjectedByHouseId(houseId);
+
+        if (house != null) {
+            return new ResponseEntity<>(house, HttpStatus.OK);
+        } else {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+    }*/
 }

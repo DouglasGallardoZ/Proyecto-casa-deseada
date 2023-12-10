@@ -1,5 +1,6 @@
 package com.proyecto.dreamedhouse.dreamedhouse.house_image;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.proyecto.dreamedhouse.dreamedhouse.house.House;
 
 import javax.persistence.*;
@@ -23,7 +24,7 @@ public class HouseImage {
     @Temporal(TemporalType.TIMESTAMP)
     @Column(name = "updated_at")
     private Date updatedAt;
-
+    @JsonBackReference
     @ManyToOne
     @JoinColumn(name = "house_id")
     private House house;

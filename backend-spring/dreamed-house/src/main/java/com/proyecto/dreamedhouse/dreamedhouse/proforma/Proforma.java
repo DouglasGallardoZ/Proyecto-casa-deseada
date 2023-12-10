@@ -1,5 +1,6 @@
 package com.proyecto.dreamedhouse.dreamedhouse.proforma;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.proyecto.dreamedhouse.dreamedhouse.door.DoorType;
 import com.proyecto.dreamedhouse.dreamedhouse.faucet.FaucetType;
 import com.proyecto.dreamedhouse.dreamedhouse.floor.FloorType;
@@ -40,22 +41,27 @@ public class Proforma {
     @Column(name = "updated_at")
     private Date updatedAt;
 
+    @JsonBackReference
     @ManyToOne
     @JoinColumn(name = "door_type_id", insertable = false, updatable = false)
     private DoorType doorType;
 
+    @JsonBackReference
     @ManyToOne
     @JoinColumn(name = "faucet_type_id", insertable = false, updatable = false)
     private FaucetType faucetType;
 
+    @JsonBackReference
     @ManyToOne
     @JoinColumn(name = "floor_type_id", insertable = false, updatable = false)
     private FloorType floorType;
 
+    @JsonBackReference
     @ManyToOne
     @JoinColumn(name = "house_id", insertable = false, updatable = false)
     private House house;
 
+    @JsonBackReference
     @ManyToOne
     @JoinColumn(name = "user_id", insertable = false, updatable = false)
     private User user;
