@@ -1,12 +1,17 @@
 package com.proyecto.dreamedhouse.dreamedhouse.auth;
+import java.security.Key;
 import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
 
 import com.proyecto.dreamedhouse.dreamedhouse.user.User;
 import com.proyecto.dreamedhouse.dreamedhouse.user.UserRepository;
+import io.jsonwebtoken.security.Keys;
+import org.hibernate.annotations.Parameter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.data.repository.query.Param;
+import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -18,7 +23,7 @@ import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 
 @RestController
-@RequestMapping("/api/auth")
+@RequestMapping("/api/AuthUser")
 public class AuthUserController {
 
     private final UserRepository userRepository;
@@ -33,12 +38,11 @@ public class AuthUserController {
         this.passwordEncoder = passwordEncoder;
     }
 
-    @PostMapping("/signIn")
+    @PostMapping("/SignIn")
     public SignInResponse signIn(@RequestBody AuthUser authUser) {
         User user = userRepository.findByEmail(authUser.getEmail());
-
         if (!passwordEncoder.matches(authUser.getPassword(), user.getPassword())) {
-            throw new IllegalArgumentException("Invalid credentials");
+            throw new BadCredentialsException("Invalid credentials");
         }
 
         String token = generateToken(user);
@@ -50,7 +54,7 @@ public class AuthUserController {
         return signInResponse;
     }
 
-    @PostMapping("/signUp")
+    @PostMapping("/SignUp")
     public String signUp(@RequestBody User user) {
         if (userRepository.existsByEmail(user.getEmail())) {
             throw new IllegalArgumentException("Email already registered");
@@ -81,11 +85,14 @@ public class AuthUserController {
         Date now = new Date();
         Date expiration = new Date(now.getTime() + 86400000); // Token valid for 1 day
 
+        // Utilizar Keys.secretKeyFor para generar una clave segura
+        Key key = Keys.secretKeyFor(SignatureAlgorithm.HS256);
+
         return Jwts.builder()
                 .setClaims(claims)
                 .setIssuedAt(now)
                 .setExpiration(expiration)
-                .signWith(SignatureAlgorithm.HS256, jwtSecret)
+                .signWith(key)
                 .compact();
     }
 }

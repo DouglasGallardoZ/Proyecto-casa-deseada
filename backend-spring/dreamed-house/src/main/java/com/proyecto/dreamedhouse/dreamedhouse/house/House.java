@@ -3,6 +3,7 @@ package com.proyecto.dreamedhouse.dreamedhouse.house;
 import com.proyecto.dreamedhouse.dreamedhouse.house_image.HouseImage;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -44,7 +45,16 @@ public class House {
     @Column(name = "updated_at", nullable = false)
     private Date updatedAt;
 
-    // Getters and setters
+    @OneToMany(mappedBy = "house", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<HouseImage> houseImages = new ArrayList<>();
+
+    public List<HouseImage> getHouseImages() {
+        return houseImages;
+    }
+
+    public void setHouseImages(List<HouseImage> houseImages) {
+        this.houseImages = houseImages;
+    }
 
     public Long getHouseId() {
         return houseId;
