@@ -1,8 +1,10 @@
 package com.proyecto.dreamedhouse.dreamedhouse.user;
+import com.proyecto.dreamedhouse.dreamedhouse.JsonUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Date;
@@ -10,13 +12,15 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/User")
-@PreAuthorize("hasRole('ROLE_USER')")
+//@PreAuthorize("hasRole('ROLE_USER')")
 public class UserController {
 
     private final UserRepository userRepository;
+    private final PasswordEncoder passwordEncoder;
     @Autowired
-    public UserController(UserRepository userRepository) {
+    public UserController(UserRepository userRepository, PasswordEncoder passwordEncoder) {
         this.userRepository = userRepository;
+        this.passwordEncoder = passwordEncoder;
     }
 
     @GetMapping("/{userId}")
@@ -38,7 +42,7 @@ public class UserController {
 
         userRepository.save(user);
 
-        return new ResponseEntity<>("Usuario actualizado correctamente", HttpStatus.OK);
+        return new ResponseEntity<>(JsonUtil.jsonResponse("Usuario actualizado correctamente"), HttpStatus.OK);
     }
 
     @PutMapping("Password/{userId}")
@@ -53,17 +57,18 @@ public class UserController {
             return ResponseEntity.badRequest().body("Contraseña actual no coincide");
         }
 
-        currentUser.setPassword(data.getNewPassword());
+        currentUser.setPassword(passwordEncoder.encode(data.getNewPassword()));
         currentUser.setUpdatedAt(new Date());
 
         userRepository.save(currentUser);
 
-        return ResponseEntity.ok("Contraseña actualizada correctamente");
+        return ResponseEntity.ok().body(JsonUtil.jsonResponse("Contraseña actualizada correctamente"));
     }
 
     private boolean validateUserPassword(User user, String password) {
         // Lógica para validar que la contraseña actual coincida con la proporcionada
-        return user.getPassword().equals(password);
+        return passwordEncoder.matches(password, user.getPassword());
+        //return user.getPassword().equals(password);
     }
 
 

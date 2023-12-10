@@ -4,6 +4,7 @@ import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import com.proyecto.dreamedhouse.dreamedhouse.JsonUtil;
 import com.proyecto.dreamedhouse.dreamedhouse.user.User;
 import com.proyecto.dreamedhouse.dreamedhouse.user.UserRepository;
 import io.jsonwebtoken.security.Keys;
@@ -11,6 +12,7 @@ import org.hibernate.annotations.Parameter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.repository.query.Param;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -55,17 +57,17 @@ public class AuthUserController {
     }
 
     @PostMapping("/SignUp")
-    public String signUp(@RequestBody User user) {
+    public ResponseEntity<String> signUp(@RequestBody User user) {
         if (userRepository.existsByEmail(user.getEmail())) {
-            throw new IllegalArgumentException("Email already registered");
+            return ResponseEntity.badRequest().body("Email already registered");
         }
 
         if (userRepository.existsByDni(user.getDni())) {
-            throw new IllegalArgumentException("DNI already registered");
+            return ResponseEntity.badRequest().body("DNI already registered");
         }
 
         if (userRepository.existsByPhoneNumber(user.getPhoneNumber())) {
-            throw new IllegalArgumentException("Phone number already registered");
+            return ResponseEntity.badRequest().body("Phone number already registered");
         }
 
         user.setPassword(passwordEncoder.encode(user.getPassword()));
@@ -74,7 +76,7 @@ public class AuthUserController {
 
         userRepository.save(user);
 
-        return "User registered successfully";
+        return ResponseEntity.ok(JsonUtil.jsonResponse("Usuario ingresado correctamente"));
     }
 
     private String generateToken(User user) {

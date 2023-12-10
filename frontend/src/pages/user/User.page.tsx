@@ -93,7 +93,7 @@ export default function User(): JSX.Element {
 
 	useEffect((): (() => void) => {
 		if (requestMessage.startsWith("Error:")) toast.current?.show({ severity: "error", summary: "Error", detail: requestMessage, life: 3000 });
-		else if (requestMessage.startsWith("Usuario") || requestMessage.startsWith("Contraseña")) {
+		else if (requestMessage.startsWith("Usuario") || requestMessage.startsWith("Contras")) {
 			toast.current.show({ severity: "success", summary: "Éxito", detail: requestMessage, life: 3000 });
 
 			setEditForm(false);

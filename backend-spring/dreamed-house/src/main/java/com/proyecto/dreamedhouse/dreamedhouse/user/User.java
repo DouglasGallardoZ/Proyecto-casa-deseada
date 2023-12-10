@@ -1,5 +1,7 @@
 package com.proyecto.dreamedhouse.dreamedhouse.user;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 import javax.persistence.*;
 import java.util.Date;
 
@@ -28,11 +30,11 @@ public class User {
 
     @Column(name = "password")
     private String password;
-
+    @JsonFormat(pattern = "MM/dd/yyyy, h:mm:ss a")
     @Temporal(TemporalType.TIMESTAMP)
     @Column(name = "created_at")
     private Date createdAt;
-
+    @JsonFormat(pattern = "MM/dd/yyyy, h:mm:ss a")
     @Temporal(TemporalType.TIMESTAMP)
     @Column(name = "updated_at")
     private Date updatedAt;
