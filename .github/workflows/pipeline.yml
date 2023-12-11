@@ -39,7 +39,12 @@ jobs:
 
     - name: Get Maven project version
       id: get_version
-      run: echo "::set-output name=MAVEN_VERSION::$(mvn -q -Dexec.executable=echo -Dexec.args='${project.version}' --non-recursive exec:exec)"
+      run: |
+        cd ./backend-spring/dreamed-house/
+        mvn -v
+        mvn -q -Dexec.executable=echo -Dexec.args='${project.version}' --non-recursive exec:exec
+        echo "MAVEN_VERSION=$(mvn -q -Dexec.executable=echo -Dexec.args='${project.version}' --non-recursive exec:exec)" >> $GITHUB_ENV
+        cat $GITHUB_ENV
 
     - name: Build backend
       run: mvn -B package --file ./pom.xml
