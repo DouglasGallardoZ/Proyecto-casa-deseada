@@ -57,4 +57,4 @@ Si al ejecutar los comandos en la terminal de [Visual Studio Code](https://code.
 Set-ExecutionPolicy Unrestricted
 ```
 
-Y presionar [S] Sí.
+Y presionar [S] Sí .
