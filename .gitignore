@@ -28,4 +28,4 @@ logs
 *.sw?
 */resources/static/*
 */dist/*
-
+node_modules/*
