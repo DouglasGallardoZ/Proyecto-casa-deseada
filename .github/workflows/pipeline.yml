@@ -37,6 +37,10 @@ jobs:
         distribution: 'temurin'
         cache: maven
 
+    - name: Get Maven project version
+      id: get_version
+      run: echo "::set-output name=MAVEN_VERSION::$(mvn -q -Dexec.executable=echo -Dexec.args='${project.version}' --non-recursive exec:exec)"
+
     - name: Build backend
       run: mvn -B package --file ./pom.xml
       working-directory: ./backend-spring/dreamed-house/
@@ -47,8 +51,8 @@ jobs:
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       with:
-        tag_name: v${{ steps.create_release.outputs.version }}
-        release_name: Release v${{ steps.create_release.outputs.version }}
+        tag_name: v${{ steps.create_release.outputs.MAVEN_VERSION }}
+        release_name: Release v${{ steps.create_release.outputs.MAVEN_VERSION }}
         body: |
           Changes in this release:
           - Describe your changes here
