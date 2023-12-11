@@ -26,4 +26,6 @@ logs
 *.ntvs*
 *.njsproj
 *.sw?
+*/resources/static/*
+*/dist
 
