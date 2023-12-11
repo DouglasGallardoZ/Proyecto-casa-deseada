@@ -38,7 +38,7 @@ jobs:
         cache: maven
 
     - name: Build backend
-      run: mvn -B package --file ./backend-spring/dreamed-house/pom.xml
+      run: mvn -B package --file ./pom.xml
       working-directory: ./backend-spring/dreamed-house/
 
     # Optional: Uploads the full dependency graph to GitHub to improve the quality of Dependabot alerts this repository can receive
