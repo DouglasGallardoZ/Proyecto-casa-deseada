@@ -8,14 +8,18 @@
 		<version>2.7.0</version>
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
-	<groupId>com.proyecto.dreamedhouse</groupId>
-	<artifactId>dreamed-house</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
-	<name>dreamed-house</name>
-	<description>Demo project for Spring Boot</description>
+
 	<properties>
 		<java.version>17</java.version>
+		<project.version>1.0.0</project.version>
 	</properties>
+
+	<groupId>com.proyecto.dreamedhouse</groupId>
+	<artifactId>dreamed-house</artifactId>
+	<version>${project.version}</version>
+	<name>dreamed-house</name>
+	<description>Demo project for Spring Boot</description>
+
 	<dependencies>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
