@@ -102,7 +102,7 @@ jobs:
         username: ${{ secrets.EC2_USERNAME }}
         key: ${{ secrets.EC2_PEM_KEY }}
         script: |
-          ls -l .
+          ls -R .
           scp -i /dev/shm/id_rsa ./dreamed-house-${{ env.VERSION }}.jar ${{ secrets.EC2_DESTINATION_PATH }}/dreamed-house.jar
           ssh -i /dev/shm/id_rsa ${{ secrets.EC2_USERNAME }}@${{ secrets.EC2_HOST }} "sudo systemctl restart casa-deseada.service "
 
