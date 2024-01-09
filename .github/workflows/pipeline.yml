@@ -68,9 +68,13 @@ jobs:
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}  
 
+    - name: Set version variable
+      id: set_version
+      run: echo "VERSION=$(mvn help:evaluate -Dexpression=project.version -q -DforceStdout)" >> $GITHUB_ENV    
+
     - name: Create Release Tag
       run: |
         git config --global user.email "douglasgallardoz11@gmail.com"
         git config --global user.name "Douglas Gallardo"
-        git tag -a v1.0.0 -m "Release version 1.0.0"
-        git push origin v1.0.0  
+        git tag -a ${{ env.VERSION }} -m "Release version ${{ env.VERSION }}"
+        git push origin ${{ env.VERSION }}
