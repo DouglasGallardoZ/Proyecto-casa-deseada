@@ -70,6 +70,10 @@ jobs:
       - name: Checkout Repository
         uses: actions/checkout@v3
 
+      - name: Imprimir Estructura del Directorio antes de Construir
+        run: ls -R 
+        working-directory: .
+
       - name: Build Snapshot JAR
         run: mvn -B clean install --file ./pom.xml
         working-directory: ./backend-spring/dreamed-house/
