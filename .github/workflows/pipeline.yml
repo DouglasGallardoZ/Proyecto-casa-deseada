@@ -95,7 +95,7 @@ jobs:
       run: ls -l $GITHUB_WORKSPACE/
 
     - name: Subir JAR como Activo del Lanzamiento (Continuación)
-      uses: actions/upload-artifact@v3 
+      uses: actions/upload-artifact@v2
       with:
         name: backend-jar
         path: $GITHUB_WORKSPACE/dreamed-house-${{ env.VERSION }}.jar    
