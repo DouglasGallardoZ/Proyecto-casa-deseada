@@ -102,7 +102,10 @@ jobs:
         username: ${{ secrets.EC2_USERNAME }}
         key: ${{ secrets.EC2_PEM_KEY }}
         script: |
-          
+          # Listar L
+          ls -l .
+          # Listar R
+          ls -R .
           # Copiar el JAR al directorio destino en la instancia EC2
           scp -i ${{ secrets.EC2_PEM_KEY }}  ./dreamed-house-${{ env.VERSION }}.jar ${{ secrets.EC2_USERNAME }}@${{ secrets.EC2_HOST }}:${{ secrets.EC2_DESTINATION_PATH }}/dreamed-house.jar
 
