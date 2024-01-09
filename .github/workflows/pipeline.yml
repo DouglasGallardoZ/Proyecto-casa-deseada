@@ -104,9 +104,9 @@ jobs:
       with:
         host: ${{ secrets.EC2_HOST }}
         username: ${{ secrets.EC2_USERNAME }}
-        key: $GITHUB_WORKSPACE/credencials-aws/casa-deseada.pem   # ${{ secrets.EC2_PEM_KEY_PATH }}
+        key: ${{ secrets.EC2_PEM_KEY }}
         source: "$GITHUB_WORKSPACE/dreamed-house.jar"
-        target: "${{ secrets.EC2_DESTINATION_PATH }}"
+        target: "${{ secrets.EC2_DESTINATION_PATH }}/dreamed-house.jar"
         # script: |
         #   # Listar L
         #   ls -l .
