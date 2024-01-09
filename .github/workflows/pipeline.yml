@@ -69,11 +69,17 @@ jobs:
         echo "Version is $VERSION"
       working-directory: ./backend-spring/dreamed-house/
 
-    - name: Upload JAR
-      run: mvn deploy -s $GITHUB_WORKSPACE/settings.xml -Dmaven.test.skip
-      working-directory: ./backend-spring/dreamed-house/
+    # - name: Upload JAR
+    #   run: mvn deploy -s $GITHUB_WORKSPACE/settings.xml -Dmaven.test.skip
+    #   working-directory: ./backend-spring/dreamed-house/
+    #   env:
+    #     GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}     
+
+    - name: Upload JAR Release
+      run: |
+        mv ./backend-spring/dreamed-house/target/*.jar $GITHUB_WORKSPACE/release.jar
       env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}     
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
     - name: Create Release Tag
       run: |
@@ -81,3 +87,9 @@ jobs:
         git config --global user.name "Douglas Gallardo"
         git tag -a v${{ env.VERSION }} -m "Release version ${{ env.VERSION }}"
         git push origin v${{ env.VERSION }}
+    
+    - name: Subir JAR como Activo del Lanzamiento (Continuación)
+      uses: actions/upload-artifact@v3
+      with:
+        name: backend-jar
+        path: $GITHUB_WORKSPACE/release.jar    
