@@ -69,11 +69,11 @@ jobs:
         echo "Version is $VERSION"
       working-directory: ./backend-spring/dreamed-house/
 
-    - name: Deploy Github Package
-      run: mvn deploy -s $GITHUB_WORKSPACE/settings.xml -Dmaven.test.skip
-      working-directory: ./backend-spring/dreamed-house/
-      env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}     
+    # - name: Deploy Github Package
+    #   run: mvn deploy -s $GITHUB_WORKSPACE/settings.xml -Dmaven.test.skip
+    #   working-directory: ./backend-spring/dreamed-house/
+    #   env:
+    #     GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}     
 
     - name: Move JAR Artifact
       run: |
@@ -82,18 +82,18 @@ jobs:
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
-    - name: Upload JAR Artifact
-      uses: actions/upload-artifact@v2
-      with:
-        name: dreamed-house-${{ env.VERSION }}
-        path: ./dreamed-house.jar  
+    # - name: Upload JAR Artifact
+    #   uses: actions/upload-artifact@v2
+    #   with:
+    #     name: dreamed-house-${{ env.VERSION }}
+    #     path: ./dreamed-house.jar  
 
-    - name: Create Release Tag
-      run: |
-        git config --global user.email "douglasgallardoz11@gmail.com"
-        git config --global user.name "Douglas Gallardo"
-        git tag -a v${{ env.VERSION }} -m "Release version ${{ env.VERSION }}"
-        git push origin v${{ env.VERSION }}
+    # - name: Create Release Tag
+    #   run: |
+    #     git config --global user.email "douglasgallardoz11@gmail.com"
+    #     git config --global user.name "Douglas Gallardo"
+    #     git tag -a v${{ env.VERSION }} -m "Release version ${{ env.VERSION }}"
+    #     git push origin v${{ env.VERSION }}
     
     - name: Listar
       run: |
@@ -104,7 +104,7 @@ jobs:
       with:
         host: ${{ secrets.EC2_HOST }}
         username: ${{ secrets.EC2_USERNAME }}
-        key: ${{ secrets.EC2_PEM_KEY }}
+        key: ${{ secrets.EC2_PEM_KEY_PATH }}
         source: "$GITHUB_WORKSPACE/dreamed-house.jar"
         target: "${{ secrets.EC2_DESTINATION_PATH }}"
         # script: |
