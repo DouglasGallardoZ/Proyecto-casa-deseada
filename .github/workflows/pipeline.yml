@@ -62,15 +62,15 @@ jobs:
       run: mvn -B package --file ./pom.xml -DskipTests
       working-directory: ./backend-spring/dreamed-house/
 
+    - name: Set version variable
+      id: set_version
+      run: echo "VERSION=$(mvn help:evaluate -Dexpression=project.version -q -DforceStdout)" >> $GITHUB_ENV 
+      
     - name: Upload JAR
       run: mvn deploy -s $GITHUB_WORKSPACE/settings.xml -Dmaven.test.skip
       working-directory: ./backend-spring/dreamed-house/
       env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}  
-
-    - name: Set version variable
-      id: set_version
-      run: echo "VERSION=$(mvn help:evaluate -Dexpression=project.version -q -DforceStdout)" >> $GITHUB_ENV    
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}     
 
     - name: Create Release Tag
       run: |
