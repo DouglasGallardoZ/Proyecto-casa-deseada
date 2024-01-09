@@ -41,22 +41,15 @@ jobs:
       run: mvn -B package --file ./pom.xml
       working-directory: ./backend-spring/dreamed-house/
 
-    - name: Create Release Tag
-      run: |
-        git config --global user.email "douglasgallardoz11@gmail.com"
-        git config --global user.name "Douglas Gallardo"
-        git tag -a v1.0.0 -m "Release version 1.0.0"
-        git push origin v1.0.0
-
-    - name: Wait for Tag
-      run: echo "Tag found, continue with the release."
-      
-    - name: Upload JAR to Release
-      uses: softprops/action-gh-release@v1
-      with:
-        files: ./backend-spring/dreamed-house/target/*.jar
-      env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}  
+  release-on-push:
+    runs-on: ubuntu-latest
+    env:
+      GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+    steps:
+      - uses: rymndhng/release-on-push-action@master
+        with:
+          tag_prefix: "v"
+          release_name: "Release <RELEASE_VERSION>"
 
   # release:
   #   runs-on: ubuntu-latest
