@@ -20,6 +20,29 @@
 	<name>dreamed-house</name>
 	<description>Demo project for Spring Boot</description>
 
+	<repositories>
+		<repository>
+			<id>github</id>
+			<name>GitHub DouglasGallardoZ Apache Maven Packages</name>
+			<url>https://maven.pkg.github.com/DouglasGallardoZ</url>
+			<snapshots>
+				<enabled>true</enabled>
+			</snapshots>
+			<releases>
+				<enabled>true</enabled>
+			</releases>
+		</repository>
+	</repositories>
+
+
+	<distributionManagement>
+		<repository>
+			<id>github</id>
+			<name>GitHub DouglasGallardoZ Apache Maven Packages</name>
+			<url>https://maven.pkg.github.com/DouglasGallardoZ</url>
+		</repository>
+	</distributionManagement>
+
 	<dependencies>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
@@ -128,6 +151,32 @@
 					</execution>
 				</executions>
 			</plugin>
+
+			<plugin>
+				<groupId>com.github.github</groupId>
+				<artifactId>site-maven-plugin</artifactId>
+				<version>0.12</version>
+				<configuration>
+					<message>Maven artifacts for ${project.version}</message>
+					<noJekyll>true</noJekyll>
+					<outputDirectory>${project.build.directory}/mvn-repo</outputDirectory>
+					<branch>refs/heads/main</branch>
+					<includes>
+						<include>**/*</include>
+					</includes>
+					<repositoryName>DouglasGallardoZ/Proyecto-casa-deseada</repositoryName>
+					<repositoryOwner>DouglasGallardoZ</repositoryOwner>
+				</configuration>
+				<executions>
+					<execution>
+						<goals>
+							<goal>site</goal>
+						</goals>
+						<phase>deploy</phase>
+					</execution>
+				</executions>
+			</plugin>
+
 		</plugins>
 	</build>
 
