@@ -70,12 +70,8 @@ jobs:
       - name: Checkout Repository
         uses: actions/checkout@v3
 
-      - name: Imprimir Estructura del Directorio antes de Construir
-        run: ls -l && pwd && git branch && cd .. && ls -l
-        working-directory: .
-
       - name: Build Snapshot JAR
-        run: mvn -B clean install --file ./backend-spring/dreamed-house/pom.xml
+        run: mvn -B clean install --file ./pom.xml
         working-directory: ./backend-spring/dreamed-house/
 
       - name: Upload SNAPSHOT JAR to GitHub
