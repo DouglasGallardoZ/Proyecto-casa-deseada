@@ -43,19 +43,16 @@ jobs:
 
   release:
     runs-on: ubuntu-latest
-
-    needs: build  # Ensure that the 'build' job is completed before starting this job
+    needs: build
+    if: github.event_name == 'push' && github.event.ref == 'refs/heads/master'
 
     steps:
-      # - name: Set up Git
-      #   run: |
-      #     git config --global user.email "you@example.com"
-      #     git config --global user.name "Your Name"
-
-      # - name: Create Release Tag
-      #   run: |
-      #     git tag -a v1.0.0 -m "Release version 1.0.0"
-      #     git push origin v1.0.0
+      - name: Create Release Tag
+        run: |
+          git config --global user.email "douglasgallardoz11@gmail.com"
+          git config --global user.name "Douglas Gallardo"
+          git tag -a v1.0.0 -m "Release version 1.0.0"
+          git push origin v1.0.0
 
       - name: Upload JAR to Release
         uses: softprops/action-gh-release@v1
@@ -63,3 +60,19 @@ jobs:
           files: ./backend-spring/dreamed-house/target/*.jar
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+  snapshot:
+    runs-on: ubuntu-latest
+    needs: build
+    if: github.event_name == 'push' && github.event.ref != 'refs/heads/master'
+
+    steps:
+      - name: Build Snapshot JAR
+        run: mvn -B clean install --file ./backend-spring/dreamed-house/pom.xml
+        working-directory: ./backend-spring/dreamed-house/
+
+      - name: Upload SNAPSHOT JAR to GitHub
+        uses: actions/upload-artifact@v2
+        with:
+          name: dreamed-house-snapshot
+          path: ./backend-spring/dreamed-house/target/*.jar
