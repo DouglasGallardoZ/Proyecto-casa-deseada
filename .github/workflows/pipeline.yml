@@ -100,4 +100,4 @@ jobs:
       uses: actions/upload-artifact@v2
       with:
         name: backend-jar
-        path: $GITHUB_WORKSPACE/dreamed-house-${{ env.VERSION }}.jar    
+        path: ./dreamed-house-${{ env.VERSION }}.jar    
