@@ -103,16 +103,16 @@ jobs:
         key: ${{ secrets.EC2_PEM_KEY }}
         source: "dreamed-house.jar"
         target: "${{ secrets.EC2_DESTINATION_PATH }}"
-        script: |
-          # Listar L
-          ls -l .
-          # Listar R
-          ls -R .
-          # Copiar el JAR al directorio destino en la instancia EC2
-          # scp -r -i ${{ secrets.EC2_PEM_KEY_PATH }}  ./dreamed-house-${{ env.VERSION }}.jar ${{ secrets.EC2_USERNAME }}@${{ secrets.EC2_HOST }}:${{ secrets.EC2_DESTINATION_PATH }}/dreamed-house.jar
+        # script: |
+        #   # Listar L
+        #   ls -l .
+        #   # Listar R
+        #   ls -R .
+        #   # Copiar el JAR al directorio destino en la instancia EC2
+        #   # scp -r -i ${{ secrets.EC2_PEM_KEY_PATH }}  ./dreamed-house-${{ env.VERSION }}.jar ${{ secrets.EC2_USERNAME }}@${{ secrets.EC2_HOST }}:${{ secrets.EC2_DESTINATION_PATH }}/dreamed-house.jar
 
-          # Acceder a la instancia EC2 y mover al directorio correcto (ajusta según tu estructura)
-          # ssh -i ${{ secrets.EC2_PEM_KEY_PATH }}  ${{ secrets.EC2_USERNAME }}@${{ secrets.EC2_HOST }} "sudo systemctl restart casa-deseada.service "
+        #   # Acceder a la instancia EC2 y mover al directorio correcto (ajusta según tu estructura)
+        #   # ssh -i ${{ secrets.EC2_PEM_KEY_PATH }}  ${{ secrets.EC2_USERNAME }}@${{ secrets.EC2_HOST }} "sudo systemctl restart casa-deseada.service "
 
 
     
