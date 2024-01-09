@@ -96,9 +96,9 @@ jobs:
         git push origin v${{ env.VERSION }}
     
     - name: Listar
-        run: |
-          ls -l
-          
+      run: |
+        ls -l
+
     - name: Deploy to EC2
       uses: appleboy/ssh-action@master
       with:
