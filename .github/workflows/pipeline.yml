@@ -97,6 +97,8 @@ jobs:
   
     - name: Asociar JAR al Lanzamiento
       run: gh release upload ${{ env.VERSION }} ./dreamed-house-${{ env.VERSION }}.jar  
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
     
     
