@@ -77,7 +77,7 @@ jobs:
 
     - name: Move JAR Artifact
       run: |
-        mv ./target/*.jar $GITHUB_WORKSPACE/
+        mv ./target/*.jar $GITHUB_WORKSPACE/dreamed-house.jar
       working-directory: ./backend-spring/dreamed-house/
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
@@ -86,7 +86,7 @@ jobs:
       uses: actions/upload-artifact@v2
       with:
         name: dreamed-house-${{ env.VERSION }}
-        path: ./dreamed-house-${{ env.VERSION }}.jar  
+        path: ./dreamed-house.jar  
 
     - name: Create Release Tag
       run: |
@@ -101,6 +101,7 @@ jobs:
         host: ${{ secrets.EC2_HOST }}
         username: ${{ secrets.EC2_USERNAME }}
         key: ${{ secrets.EC2_PEM_KEY }}
+        source: "dreamed-house.jar"
         script: |
           # Listar L
           ls -l .
