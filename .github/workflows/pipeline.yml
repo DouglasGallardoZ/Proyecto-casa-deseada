@@ -68,7 +68,7 @@ jobs:
 
     steps:
       - name: Imprimir Estructura del Directorio antes de Construir
-        run: ls -l && pwd
+        run: ls -l && pwd && git branch && cd .. && ls -l
         working-directory: .
 
       - name: Build Snapshot JAR
