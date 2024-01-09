@@ -104,10 +104,10 @@ jobs:
         script: |
           
           # Copiar el JAR al directorio destino en la instancia EC2
-          scp -i /dev/shm/id_rsa ./dreamed-house-${{ env.VERSION }}.jar ${{ secrets.EC2_USERNAME }}@${{ secrets.EC2_HOST }}:${{ secrets.EC2_DESTINATION_PATH }}/dreamed-house.jar
+          scp -i ${{ secrets.EC2_PEM_KEY }}  ./dreamed-house-${{ env.VERSION }}.jar ${{ secrets.EC2_USERNAME }}@${{ secrets.EC2_HOST }}:${{ secrets.EC2_DESTINATION_PATH }}/dreamed-house.jar
 
           # Acceder a la instancia EC2 y mover al directorio correcto (ajusta según tu estructura)
-          ssh -i /dev/shm/id_rsa ${{ secrets.EC2_USERNAME }}@${{ secrets.EC2_HOST }} "sudo systemctl restart casa-deseada.service "
+          ssh -i ${{ secrets.EC2_PEM_KEY }}  ${{ secrets.EC2_USERNAME }}@${{ secrets.EC2_HOST }} "sudo systemctl restart casa-deseada.service "
 
 
     
