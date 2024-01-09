@@ -91,9 +91,11 @@ jobs:
         git tag -a v${{ env.VERSION }} -m "Release version ${{ env.VERSION }}"
         git push origin v${{ env.VERSION }}
     
+    - name: Ver directorio
+      run: ls -l $GITHUB_WORKSPACE/
+
     - name: Subir JAR como Activo del Lanzamiento (Continuación)
-      uses: actions/upload-artifact@v3
-      run: ls -l $GITHUB_WORKSPACE/ 
+      uses: actions/upload-artifact@v3 
       with:
         name: backend-jar
         path: $GITHUB_WORKSPACE/dreamed-house-${{ env.VERSION }}.jar    
