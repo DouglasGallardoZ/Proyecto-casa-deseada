@@ -78,7 +78,7 @@ jobs:
     - name: Upload JAR Release
       run: |
         ls -l ./target
-        mv ./target/*.jar $GITHUB_WORKSPACE/release.jar
+        mv ./target/*.jar $GITHUB_WORKSPACE/
         ls -l $GITHUB_WORKSPACE/
       working-directory: ./backend-spring/dreamed-house/
       env:
@@ -95,4 +95,4 @@ jobs:
       uses: actions/upload-artifact@v3
       with:
         name: backend-jar
-        path: $GITHUB_WORKSPACE/release.jar    
+        path: $GITHUB_WORKSPACE/*.jar    
