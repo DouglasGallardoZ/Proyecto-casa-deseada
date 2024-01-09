@@ -63,7 +63,7 @@ jobs:
       working-directory: ./backend-spring/dreamed-house/
 
     - name: Upload JAR
-      run: mvn -B deploy --file ./pom.xml -DskipTests
+      run: mvn -B deploy -s $GITHUB_WORKSPACE/settings.xml --file ./pom.xml -DskipTests
       working-directory: ./backend-spring/dreamed-house/
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}  
