@@ -49,7 +49,7 @@ jobs:
     steps:
       - uses: actions/checkout@v3
       - name: Create Release Tag
-        run: |
+        run:
           git config --global user.email "douglasgallardoz11@gmail.com"
           git config --global user.name "Douglas Gallardo"
           git tag -a v1.0.0 -m "Release version 1.0.0"
