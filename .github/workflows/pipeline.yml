@@ -58,9 +58,8 @@ jobs:
       - name: Wait for Tag
         run: echo "Tag found, continue with the release."
 
-      - name: Upload JAR to Release
-        uses: softprops/action-gh-release@v1
-        with:
-          files: ./backend-spring/dreamed-house/target/*.jar
+      - name: Upload JAR
+        run: mvn -B deploy --file ./pom.xml
+        working-directory: ./backend-spring/dreamed-house/
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
