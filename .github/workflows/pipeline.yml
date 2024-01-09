@@ -94,6 +94,17 @@ jobs:
         git config --global user.name "Douglas Gallardo"
         git tag -a v${{ env.VERSION }} -m "Release version ${{ env.VERSION }}"
         git push origin v${{ env.VERSION }}
+    
+    - name: Deploy to EC2
+      uses: appleboy/ssh-action@master
+      with:
+        host: ${{ secrets.EC2_HOST }}
+        username: ${{ secrets.EC2_USERNAME }}
+        key: ${{ secrets.EC2_PEM_KEY }}
+        script: |
+          scp -i /dev/shm/id_rsa ./dreamed-house-${{ env.VERSION }}.jar ${{ secrets.EC2_DESTINATION_PATH }}/dreamed-house.jar
+          ssh -i /dev/shm/id_rsa ${{ secrets.EC2_USERNAME }}@${{ secrets.EC2_HOST }} "sudo systemctl restart casa-deseada.service "
+
 
     
     
