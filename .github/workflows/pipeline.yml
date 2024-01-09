@@ -68,7 +68,7 @@ jobs:
 
     steps:
       - name: Build Snapshot JAR
-        run: mvn -B clean install --file ./backend-spring/dreamed-house/pom.xml
+        run: mvn -B clean install --file ./pom.xml
         working-directory: ./backend-spring/dreamed-house/
 
       - name: Upload SNAPSHOT JAR to GitHub
