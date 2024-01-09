@@ -77,7 +77,8 @@ jobs:
 
     - name: Upload JAR Release
       run: |
-        mv ./backend-spring/dreamed-house/target/*.jar $GITHUB_WORKSPACE/release.jar
+        mv ./target/*.jar $GITHUB_WORKSPACE/release.jar
+      working-directory: ./backend-spring/dreamed-house/
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
