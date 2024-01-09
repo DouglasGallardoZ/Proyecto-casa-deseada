@@ -79,6 +79,7 @@ jobs:
       run: |
         ls -l ./target
         mv ./target/*.jar $GITHUB_WORKSPACE/release.jar
+        ls -l $GITHUB_WORKSPACE/
       working-directory: ./backend-spring/dreamed-house/
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
