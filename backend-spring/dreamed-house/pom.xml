@@ -137,31 +137,7 @@
 				</executions>
 			</plugin>
 
-			<plugin>
-				<groupId>com.github.github</groupId>
-				<artifactId>site-maven-plugin</artifactId>
-				<version>0.12</version>
-				<configuration>
-					<message>Maven artifacts for ${project.version}</message>
-					<noJekyll>true</noJekyll>
-					<outputDirectory>${project.build.directory}/mvn-repo</outputDirectory>
-					<branch>refs/heads/main</branch>
-					<includes>
-						<include>**/*</include>
-					</includes>
-					<repositoryName>DouglasGallardoZ/Proyecto-casa-deseada</repositoryName>
-					<repositoryOwner>DouglasGallardoZ</repositoryOwner>
-				</configuration>
-				<executions>
-					<execution>
-						<goals>
-							<goal>site</goal>
-						</goals>
-						<phase>deploy</phase>
-					</execution>
-				</executions>
-			</plugin>
-
+		
 		</plugins>
 	</build>
 
