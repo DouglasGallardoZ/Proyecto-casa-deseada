@@ -7,7 +7,7 @@ on:
     branches: [ "master", "develop" ]
 
 jobs:
-  compile&test:
+  compile_test:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
@@ -27,11 +27,11 @@ jobs:
         run: mvn -B test --file ./pom.xml
         working-directory: ./backend-spring/dreamed-house/  
 
-  build&deploy:
+  build_deploy:
 
     runs-on: ubuntu-latest
     if: github.event_name == 'push' && github.event.ref != 'refs/heads/master'
-    needs: compile&test
+    needs: compile_test
     steps:
     - uses: actions/checkout@v3
 
