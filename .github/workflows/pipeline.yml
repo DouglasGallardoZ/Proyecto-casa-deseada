@@ -67,6 +67,10 @@ jobs:
     if: github.event_name == 'push' && github.event.ref != 'refs/heads/master'
 
     steps:
+      - name: Imprimir Estructura del Directorio antes de Construir
+        run: ls -R ./backend-spring/dreamed-house/
+        working-directory: ./backend-spring/dreamed-house/
+        
       - name: Build Snapshot JAR
         run: mvn -B clean install --file ./backend-spring/dreamed-house/pom.xml
         working-directory: ./backend-spring/dreamed-house/
