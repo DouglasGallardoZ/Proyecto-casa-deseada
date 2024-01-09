@@ -69,13 +69,13 @@ jobs:
         echo "Version is $VERSION"
       working-directory: ./backend-spring/dreamed-house/
 
-    # - name: Upload JAR
-    #   run: mvn deploy -s $GITHUB_WORKSPACE/settings.xml -Dmaven.test.skip
-    #   working-directory: ./backend-spring/dreamed-house/
-    #   env:
-    #     GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}     
+    - name: Deploy Github Package
+      run: mvn deploy -s $GITHUB_WORKSPACE/settings.xml -Dmaven.test.skip
+      working-directory: ./backend-spring/dreamed-house/
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}     
 
-    - name: Move JAR Release
+    - name: Move JAR Artifact
       run: |
         mv ./target/*.jar $GITHUB_WORKSPACE/
       working-directory: ./backend-spring/dreamed-house/
@@ -94,11 +94,6 @@ jobs:
         git config --global user.name "Douglas Gallardo"
         git tag -a v${{ env.VERSION }} -m "Release version ${{ env.VERSION }}"
         git push origin v${{ env.VERSION }}
-  
-    - name: Asociar JAR al Lanzamiento
-      run: gh release upload ${{ env.VERSION }} ./dreamed-house-${{ env.VERSION }}.jar  
-      env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
     
     
