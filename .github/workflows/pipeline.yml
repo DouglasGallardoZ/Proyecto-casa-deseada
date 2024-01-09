@@ -77,27 +77,33 @@ jobs:
 
     - name: Upload JAR Release
       run: |
-        ls -l ./target
         mv ./target/*.jar $GITHUB_WORKSPACE/
-        ls -l $GITHUB_WORKSPACE/
       working-directory: ./backend-spring/dreamed-house/
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
-    - name: Create Release Tag
-      run: |
-        git config --global user.email "douglasgallardoz11@gmail.com"
-        git config --global user.name "Douglas Gallardo"
-        git tag -a v${{ env.VERSION }} -m "Release version ${{ env.VERSION }}"
-        git push origin v${{ env.VERSION }}
-    
-    - name: Ver directorio
-      run: |
-        ls -l $GITHUB_WORKSPACE/
-        ls -l 
+    # - name: Create Release Tag
+    #   run: |
+    #     git config --global user.email "douglasgallardoz11@gmail.com"
+    #     git config --global user.name "Douglas Gallardo"
+    #     git tag -a v${{ env.VERSION }} -m "Release version ${{ env.VERSION }}"
+    #     git push origin v${{ env.VERSION }}
 
     - name: Subir JAR como Activo del Lanzamiento (Continuación)
       uses: actions/upload-artifact@v2
       with:
-        name: backend-jar
+        name: dreamed-house-${{ env.VERSION }}
         path: ./dreamed-house-${{ env.VERSION }}.jar    
+
+    - name: Instalar la herramienta GitHub CLI (gh)
+      run: |
+        sudo apt-key adv --keyserver keyserver.ubuntu.com --recv-key C99B11DEB97541F0
+        sudo apt-add-repository https://cli.github.com/packages
+        sudo apt update
+        sudo apt install gh
+
+    - name: Crear Lanzamiento con Activo
+      run: gh release create v${{ env.VERSION }} ./backend-spring/dreamed-house/target/*.jar -t "Release version ${{ env.VERSION }}"
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+    
