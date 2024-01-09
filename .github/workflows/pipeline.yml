@@ -68,7 +68,7 @@ jobs:
 
     steps:
       - name: Imprimir Estructura del Directorio antes de Construir
-        run: ls -R .
+        run: ls -R . && pwd
         working-directory: .
 
       - name: Build Snapshot JAR
