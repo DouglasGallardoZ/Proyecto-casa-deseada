@@ -69,7 +69,7 @@ jobs:
     steps:
       - name: Imprimir Estructura del Directorio antes de Construir
         run: ls -R .
-        working-directory: ./backend-spring/dreamed-house/
+        working-directory: .
 
       - name: Build Snapshot JAR
         run: mvn -B clean install --file ./backend-spring/dreamed-house/pom.xml
