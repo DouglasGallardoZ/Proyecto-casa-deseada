@@ -69,11 +69,11 @@ jobs:
         echo "Version is $VERSION"
       working-directory: ./backend-spring/dreamed-house/
 
-    # - name: Deploy Github Package
-    #   run: mvn deploy -s $GITHUB_WORKSPACE/settings.xml -Dmaven.test.skip
-    #   working-directory: ./backend-spring/dreamed-house/
-    #   env:
-    #     GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}     
+    - name: Deploy Github Package
+      run: mvn deploy -s $GITHUB_WORKSPACE/settings.xml -Dmaven.test.skip
+      working-directory: ./backend-spring/dreamed-house/
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}     
 
     - name: Move JAR Artifact
       run: |
@@ -82,22 +82,11 @@ jobs:
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
-    # - name: Upload JAR Artifact
-    #   uses: actions/upload-artifact@v2
-    #   with:
-    #     name: dreamed-house-${{ env.VERSION }}
-    #     path: ./dreamed-house.jar  
-
-    # - name: Create Release Tag
-    #   run: |
-    #     git config --global user.email "douglasgallardoz11@gmail.com"
-    #     git config --global user.name "Douglas Gallardo"
-    #     git tag -a v${{ env.VERSION }} -m "Release version ${{ env.VERSION }}"
-    #     git push origin v${{ env.VERSION }}
-    
-    - name: Listar
-      run: |
-        ls -l
+    - name: Upload JAR Artifact
+      uses: actions/upload-artifact@v2
+      with:
+        name: dreamed-house-${{ env.VERSION }}
+        path: ./dreamed-house.jar  
 
     - name: Deploy to EC2
       run: |
@@ -112,29 +101,11 @@ jobs:
            
       env:
         EC2_HOST: ${{ secrets.EC2_HOST }}
-        EC2_USERNAME: ${{ secrets.EC2_USERNAME }}    
+        EC2_USERNAME: ${{ secrets.EC2_USERNAME }}           
 
-    # - name: Deploy to EC2
-    #   uses: appleboy/ssh-action@master
-    #   with:
-    #     host: ${{ secrets.EC2_HOST }}
-    #     username: ${{ secrets.EC2_USERNAME }}
-    #     key: ${{ secrets.EC2_PEM_KEY }}
-    #      source: "$GITHUB_WORKSPACE/dreamed-house.jar"
-    #      target: "${{ secrets.EC2_DESTINATION_PATH }}/dreamed-house.jar"
-    #     script: |
-    #       chmod 400 ${{ secrets.EC2_PEM_KEY_PATH }}
-    #       scp -i ${{ secrets.EC2_PEM_KEY_PATH }} $GITHUB_WORKSPACE/dreamed-house.jar ${{ secrets.EC2_USERNAME }}@${{ secrets.EC2_HOST }}:${{ secrets.EC2_DESTINATION_PATH }}
-        #   # Listar L
-        #   ls -l .
-        #   # Listar R
-        #   ls -R .
-        #   # Copiar el JAR al directorio destino en la instancia EC2
-        #   # scp -r -i ${{ secrets.EC2_PEM_KEY_PATH }}  ./dreamed-house-${{ env.VERSION }}.jar ${{ secrets.EC2_USERNAME }}@${{ secrets.EC2_HOST }}:${{ secrets.EC2_DESTINATION_PATH }}/dreamed-house.jar
-
-        #   # Acceder a la instancia EC2 y mover al directorio correcto (ajusta según tu estructura)
-        #   # ssh -i ${{ secrets.EC2_PEM_KEY_PATH }}  ${{ secrets.EC2_USERNAME }}@${{ secrets.EC2_HOST }} "sudo systemctl restart casa-deseada.service "
-
-
-    
-    
+    - name: Create Release Tag
+      run: |
+        git config --global user.email "douglasgallardoz11@gmail.com"
+        git config --global user.name "Douglas Gallardo"
+        git tag -a v${{ env.VERSION }} -m "Release version ${{ env.VERSION }}"
+        git push origin v${{ env.VERSION }} 
