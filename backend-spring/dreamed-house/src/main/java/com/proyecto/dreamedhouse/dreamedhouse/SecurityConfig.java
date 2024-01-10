@@ -19,13 +19,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         http.cors().and()
                 .csrf().disable() // Deshabilitar CSRF (puedes habilitarlo si es necesario)
                 .authorizeRequests()
-                .antMatchers("/api/House").permitAll() // Permitir acceso sin autenticación a esta ruta
-                .anyRequest().authenticated() // Todas las demás solicitudes requieren autenticación
-                .and()
-                .formLogin()
-                .permitAll() // Permitir acceso a la página de inicio de sesión
-                .and()
-                .logout()
-                .permitAll(); // Permitir acceso al endpoint de logout
-    }
+                .antMatchers("/api/House").permitAll(); // Permitir acceso sin autenticación a esta ruta
+            }
 }
