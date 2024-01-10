@@ -101,11 +101,13 @@ jobs:
 
     - name: Deploy to EC2
       run: |
+        mkdir -p ~/.ssh
+        chmod 700 ~/.ssh
         chmod 400 ${{ secrets.EC2_PEM_KEY_PATH }}
-        ssh-keyscan -H [${{ secrets.EC2_HOST }}] >> ~/.ssh/known_hosts
+        ssh-keyscan -H [EC2_HOST] >> ~/.ssh/known_hosts
         # scp -i ${{ secrets.EC2_PEM_KEY_PATH }} $GITHUB_WORKSPACE/dreamed-house.jar ${{ secrets.EC2_USERNAME }}@${{ secrets.EC2_HOST }}:${{ secrets.EC2_DESTINATION_PATH }}
         ssh -i ${{ secrets.EC2_PEM_KEY_PATH }} ${{ secrets.EC2_USERNAME }}@${{ secrets.EC2_HOST }} 'bash -s' <<'ENDSSH'
-          ls -l
+          ls -l .
         ENDSSH
           #sudo systemctl restart casa-deseada.service
            
