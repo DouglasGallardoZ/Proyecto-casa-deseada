@@ -100,16 +100,26 @@ jobs:
         ls -l
 
     - name: Deploy to EC2
-      uses: appleboy/ssh-action@master
-      with:
-        host: ${{ secrets.EC2_HOST }}
-        username: ${{ secrets.EC2_USERNAME }}
-        key: ${{ secrets.EC2_PEM_KEY }}
-        # source: "$GITHUB_WORKSPACE/dreamed-house.jar"
-        # target: "${{ secrets.EC2_DESTINATION_PATH }}/dreamed-house.jar"
-        script: |
-          chmod 400 ${{ secrets.EC2_PEM_KEY_PATH }}
-          scp -i ${{ secrets.EC2_PEM_KEY_PATH }} $GITHUB_WORKSPACE/dreamed-house.jar ${{ secrets.EC2_USERNAME }}@${{ secrets.EC2_HOST }}:${{ secrets.EC2_DESTINATION_PATH }}
+      run: |
+        chmod 400 ${{ secrets.EC2_PEM_KEY_PATH }}
+        scp -i ${{ secrets.EC2_PEM_KEY_PATH }} $GITHUB_WORKSPACE/dreamed-house.jar ${{ secrets.EC2_USERNAME }}@${{ secrets.EC2_HOST }}:${{ secrets.EC2_DESTINATION_PATH }}
+        ssh -i ${{ secrets.EC2_PEM_KEY_PATH }} ${{ secrets.EC2_USERNAME }}@${{ secrets.EC2_HOST }} 'bash -s' <<'ENDSSH'
+          sudo systemctl restart casa-deseada.service
+      env:
+        EC2_HOST: ${{ secrets.EC2_HOST }}
+        EC2_USERNAME: ${{ secrets.EC2_USERNAME }}    
+
+    # - name: Deploy to EC2
+    #   uses: appleboy/ssh-action@master
+    #   with:
+    #     host: ${{ secrets.EC2_HOST }}
+    #     username: ${{ secrets.EC2_USERNAME }}
+    #     key: ${{ secrets.EC2_PEM_KEY }}
+    #      source: "$GITHUB_WORKSPACE/dreamed-house.jar"
+    #      target: "${{ secrets.EC2_DESTINATION_PATH }}/dreamed-house.jar"
+    #     script: |
+    #       chmod 400 ${{ secrets.EC2_PEM_KEY_PATH }}
+    #       scp -i ${{ secrets.EC2_PEM_KEY_PATH }} $GITHUB_WORKSPACE/dreamed-house.jar ${{ secrets.EC2_USERNAME }}@${{ secrets.EC2_HOST }}:${{ secrets.EC2_DESTINATION_PATH }}
         #   # Listar L
         #   ls -l .
         #   # Listar R
