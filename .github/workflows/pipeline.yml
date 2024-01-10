@@ -104,8 +104,9 @@ jobs:
         chmod 400 ${{ secrets.EC2_PEM_KEY_PATH }}
         # scp -i ${{ secrets.EC2_PEM_KEY_PATH }} $GITHUB_WORKSPACE/dreamed-house.jar ${{ secrets.EC2_USERNAME }}@${{ secrets.EC2_HOST }}:${{ secrets.EC2_DESTINATION_PATH }}
         ssh -i ${{ secrets.EC2_PEM_KEY_PATH }} ${{ secrets.EC2_USERNAME }}@${{ secrets.EC2_HOST }} 'bash -s' <<'ENDSSH'
+          ls -l
 #          sudo systemctl restart casa-deseada.service
-           ls -l
+           
       env:
         EC2_HOST: ${{ secrets.EC2_HOST }}
         EC2_USERNAME: ${{ secrets.EC2_USERNAME }}    
