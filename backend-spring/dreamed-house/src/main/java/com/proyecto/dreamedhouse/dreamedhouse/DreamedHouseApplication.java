@@ -13,7 +13,7 @@ public class DreamedHouseApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(DreamedHouseApplication.class, args);
 	}
-
+/*
 	@Bean
 	public CorsFilter corsFilter() {
 		final UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
@@ -30,6 +30,6 @@ public class DreamedHouseApplication {
 		config.addAllowedMethod("PATCH");
 		source.registerCorsConfiguration("/**", config);
 		return new CorsFilter(source);
-	}
+	}*/
 
 }
