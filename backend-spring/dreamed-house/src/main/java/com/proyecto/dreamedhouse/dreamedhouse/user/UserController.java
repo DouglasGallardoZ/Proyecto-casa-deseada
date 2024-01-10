@@ -23,6 +23,7 @@ public class UserController {
         this.passwordEncoder = passwordEncoder;
     }
 
+    @CrossOrigin(origins = "*")
     @GetMapping("/{userId}")
     public ResponseEntity<User> getUser(@PathVariable Long userId) {
         return userRepository.findById(userId)
@@ -30,6 +31,7 @@ public class UserController {
                 .orElseGet(() -> new ResponseEntity<>(HttpStatus.NOT_FOUND));
     }
 
+    @CrossOrigin(origins = "*")
     @PutMapping("/{userId}")
     public ResponseEntity<String> putUser(@PathVariable int userId, @RequestBody User user) {
         if (userId != user.getUserId())
@@ -45,6 +47,7 @@ public class UserController {
         return new ResponseEntity<>(JsonUtil.jsonResponse("Usuario actualizado correctamente"), HttpStatus.OK);
     }
 
+    @CrossOrigin(origins = "*")
     @PutMapping("Password/{userId}")
     public ResponseEntity<String> putUserPassword(@PathVariable Long userId, @RequestBody ChangePasswordDTO data) {
         User currentUser = userRepository.getById(userId);

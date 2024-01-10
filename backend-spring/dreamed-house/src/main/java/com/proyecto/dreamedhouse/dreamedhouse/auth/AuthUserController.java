@@ -12,10 +12,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.security.Key;
 import java.util.Date;
@@ -36,6 +33,7 @@ public class AuthUserController {
         this.passwordEncoder = passwordEncoder;
     }
 
+    @CrossOrigin(origins = "*")
     @PostMapping("/SignIn")
     public SignInResponse signIn(@RequestBody AuthUser authUser) {
         User user = userRepository.findByEmail(authUser.getEmail());
@@ -52,6 +50,7 @@ public class AuthUserController {
         return signInResponse;
     }
 
+    @CrossOrigin(origins = "*")
     @PostMapping("/SignUp")
     public ResponseEntity<String> signUp(@RequestBody User user) {
         if (userRepository.existsByEmail(user.getEmail())) {

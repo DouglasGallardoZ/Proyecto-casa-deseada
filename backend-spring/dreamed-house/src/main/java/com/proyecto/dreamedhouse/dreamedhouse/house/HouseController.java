@@ -2,10 +2,7 @@ package com.proyecto.dreamedhouse.dreamedhouse.house;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -25,6 +22,7 @@ public class HouseController {
         return ResponseEntity.ok(houses);
     }
 
+    @CrossOrigin(origins = "*")
     @GetMapping("/{houseId}")
     public ResponseEntity<House> getHouse(@PathVariable Long houseId) {
         return houseRepository.findById(houseId)

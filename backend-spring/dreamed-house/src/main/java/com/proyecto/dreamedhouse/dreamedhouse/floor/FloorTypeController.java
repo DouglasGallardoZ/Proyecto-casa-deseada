@@ -2,10 +2,7 @@ package com.proyecto.dreamedhouse.dreamedhouse.floor;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -24,6 +21,7 @@ public class FloorTypeController {
     }
 
     // GET: /api/floor-type
+    @CrossOrigin(origins = "*")
     @GetMapping
     /**
      * Endpoint to get all Floor Finishes
@@ -34,6 +32,7 @@ public class FloorTypeController {
     }
 
     // GET: /api/floor-type/{floorTypeId}
+    @CrossOrigin(origins = "*")
     @GetMapping("/{floorTypeId}")
     /**
      * Endpoint to get a Floor Finish
