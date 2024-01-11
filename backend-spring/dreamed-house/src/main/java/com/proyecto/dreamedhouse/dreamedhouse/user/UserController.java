@@ -11,6 +11,7 @@ import java.util.Date;
 import java.util.List;
 
 @RestController
+@CrossOrigin(origins = "*")
 @RequestMapping("/api/User")
 //@PreAuthorize("hasRole('ROLE_USER')")
 public class UserController {

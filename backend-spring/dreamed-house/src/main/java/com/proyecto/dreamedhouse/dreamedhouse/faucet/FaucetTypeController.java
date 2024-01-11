@@ -10,6 +10,7 @@ import java.util.List;
  * Class {@code FaucetTypeController} sets the endpoints to work with the Faucet Type entity
  */
 @RestController
+@CrossOrigin(origins = "*")
 @RequestMapping("/api/FaucetType")
 public class FaucetTypeController {
 

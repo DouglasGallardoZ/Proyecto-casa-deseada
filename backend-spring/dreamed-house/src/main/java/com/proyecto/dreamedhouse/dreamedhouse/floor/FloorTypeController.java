@@ -10,6 +10,7 @@ import java.util.List;
  * Class {@code FloorTypeController} sets the endpoints to work with the Floor Type entity
  */
 @RestController
+@CrossOrigin(origins = "*")
 @RequestMapping("/api/FloorType")
 public class FloorTypeController {
 
