@@ -11,7 +11,7 @@
 
 	<properties>
 		<java.version>17</java.version>
-		<project.version>1.0.49</project.version>
+		<project.version>1.0.50</project.version>
 	</properties>
 
 	<groupId>com.proyecto.dreamedhouse</groupId>

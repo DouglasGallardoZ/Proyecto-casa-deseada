@@ -18,7 +18,6 @@ import java.security.Key;
 import java.util.Date;
 
 @RestController
-@CrossOrigin(origins = "*")
 @RequestMapping("/api/AuthUser")
 public class AuthUserController {
 
@@ -34,7 +33,6 @@ public class AuthUserController {
         this.passwordEncoder = passwordEncoder;
     }
 
-    @CrossOrigin(origins = "*")
     @PostMapping("/SignIn")
     public SignInResponse signIn(@RequestBody AuthUser authUser) {
         User user = userRepository.findByEmail(authUser.getEmail());
@@ -51,7 +49,6 @@ public class AuthUserController {
         return signInResponse;
     }
 
-    @CrossOrigin(origins = "*")
     @PostMapping("/SignUp")
     public ResponseEntity<String> signUp(@RequestBody User user) {
         if (userRepository.existsByEmail(user.getEmail())) {

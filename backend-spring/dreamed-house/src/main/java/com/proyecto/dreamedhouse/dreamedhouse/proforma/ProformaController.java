@@ -11,7 +11,6 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/Proforma")
-@CrossOrigin(origins = "*")
 public class ProformaController {
 
     private final ProformaRepository proformaRepository;
@@ -21,7 +20,6 @@ public class ProformaController {
         this.proformaRepository = proformaRepository;
     }
 
-    @CrossOrigin(origins = "*")
     @PostMapping
     public ResponseEntity<String> createProforma(@Valid @RequestBody Proforma proforma) {
         proforma.setCreatedAt(new Date());
@@ -29,7 +27,7 @@ public class ProformaController {
         proformaRepository.save(proforma);
         return ResponseEntity.ok(JsonUtil.jsonResponse("Proforma guardada correctamente"));
     }
-    @CrossOrigin(origins = "*")
+
     @GetMapping("/{userId}")
     public ResponseEntity<?> getProformas(@PathVariable int userId) {
         List<Proforma> proformas = proformaRepository.findByUserId(userId);
@@ -39,7 +37,6 @@ public class ProformaController {
         return ResponseEntity.ok(proformas);
     }
 
-    @CrossOrigin(origins = "*")
     @PutMapping("/{proformaId}")
     public ResponseEntity<String> updateProforma(@PathVariable int proformaId, @Valid @RequestBody Proforma proforma) {
         if (proformaId != proforma.getProformaId()) {
@@ -52,7 +49,6 @@ public class ProformaController {
         return ResponseEntity.ok(JsonUtil.jsonResponse("Proforma actualizada correctamente"));
     }
 
-    @CrossOrigin(origins = "*")
     @DeleteMapping("/{proformaId}")
     public ResponseEntity<String> deleteProforma(@PathVariable Long proformaId) {
         Proforma proforma = proformaRepository.findById(proformaId)

@@ -7,7 +7,6 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@CrossOrigin(origins = "*")
 @RequestMapping("/api/DoorType")
 public class DoorTypeController {
 
@@ -18,14 +17,12 @@ public class DoorTypeController {
         this.doorTypeRepository = doorTypeRepository;
     }
 
-    @CrossOrigin(origins = "*")
     @GetMapping
     public ResponseEntity<List<DoorType>> getDoorTypes() {
         List<DoorType> doorTypes = doorTypeRepository.findAll();
         return ResponseEntity.ok(doorTypes);
     }
 
-    @CrossOrigin(origins = "*")
     @GetMapping("/{doorTypeId}")
     public ResponseEntity<DoorType> getDoorType(@PathVariable Long doorTypeId) {
         return doorTypeRepository.findById(doorTypeId)

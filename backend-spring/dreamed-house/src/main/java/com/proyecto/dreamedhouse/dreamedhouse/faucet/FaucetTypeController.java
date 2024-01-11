@@ -10,7 +10,6 @@ import java.util.List;
  * Class {@code FaucetTypeController} sets the endpoints to work with the Faucet Type entity
  */
 @RestController
-@CrossOrigin(origins = "*")
 @RequestMapping("/api/FaucetType")
 public class FaucetTypeController {
 
@@ -22,15 +21,12 @@ public class FaucetTypeController {
     }
 
     // GET: /api/FaucetType
-
-    @CrossOrigin(origins = "*")
     @GetMapping
     public ResponseEntity<List<FaucetType>> getFaucetTypes() {
         List<FaucetType> faucetTypes = faucetTypeRepository.findAll();
         return ResponseEntity.ok(faucetTypes);
     }
 
-    @CrossOrigin(origins = "*")
     @GetMapping("/{faucetTypeId}")
     public ResponseEntity<FaucetType> getFaucetType(@PathVariable Long faucetTypeId) {
         return faucetTypeRepository.findById(faucetTypeId)

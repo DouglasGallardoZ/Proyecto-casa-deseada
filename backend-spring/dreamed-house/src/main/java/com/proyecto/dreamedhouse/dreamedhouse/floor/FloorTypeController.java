@@ -10,7 +10,6 @@ import java.util.List;
  * Class {@code FloorTypeController} sets the endpoints to work with the Floor Type entity
  */
 @RestController
-@CrossOrigin(origins = "*")
 @RequestMapping("/api/FloorType")
 public class FloorTypeController {
 
@@ -22,7 +21,6 @@ public class FloorTypeController {
     }
 
     // GET: /api/floor-type
-    @CrossOrigin(origins = "*")
     @GetMapping
     /**
      * Endpoint to get all Floor Finishes
@@ -33,7 +31,6 @@ public class FloorTypeController {
     }
 
     // GET: /api/floor-type/{floorTypeId}
-    @CrossOrigin(origins = "*")
     @GetMapping("/{floorTypeId}")
     /**
      * Endpoint to get a Floor Finish
