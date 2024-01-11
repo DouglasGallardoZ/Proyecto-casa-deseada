@@ -11,7 +11,6 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/Proforma")
-@CrossOrigin(origins = "*")
 public class ProformaController {
 
     private final ProformaRepository proformaRepository;

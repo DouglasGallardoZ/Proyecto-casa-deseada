@@ -8,14 +8,26 @@
 		<version>2.7.0</version>
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
-	<groupId>com.proyecto.dreamedhouse</groupId>
-	<artifactId>dreamed-house</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
-	<name>dreamed-house</name>
-	<description>Demo project for Spring Boot</description>
+
 	<properties>
 		<java.version>17</java.version>
+		<project.version>1.1.0</project.version>
 	</properties>
+
+	<groupId>com.proyecto.dreamedhouse</groupId>
+	<artifactId>dreamed-house</artifactId>
+	<version>${project.version}</version>
+	<name>dreamed-house</name>
+	<description>Demo project for Spring Boot</description>
+
+	<distributionManagement>
+		<repository>
+			<id>github</id>
+			<name>GitHub DouglasGallardoZ Apache Maven Packages</name>
+			<url>https://maven.pkg.github.com/DouglasGallardoZ/Proyecto-casa-deseada</url>
+		</repository>
+	</distributionManagement>
+
 	<dependencies>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
@@ -62,31 +74,32 @@
 		</dependency>
 
 
-		<!-- Spring Boot Starter Data JPA -->
-    <dependency>
-        <groupId>org.springframework.boot</groupId>
-        <artifactId>spring-boot-starter-data-jpa</artifactId>
-		<exclusions>
-			<exclusion>
-				<groupId>org.hibernate</groupId>
-				<artifactId>hibernate-core</artifactId>
-			</exclusion>
-		</exclusions>
-    </dependency>
+			<!-- Spring Boot Starter Data JPA -->
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-data-jpa</artifactId>
+			<exclusions>
+				<exclusion>
+					<groupId>org.hibernate</groupId>
+					<artifactId>hibernate-core</artifactId>
+				</exclusion>
+			</exclusions>
+		</dependency>
 
 
-    <!-- Driver de MySQL (puedes cambiar esto según tu base de datos) -->
-    <dependency>
-        <groupId>mysql</groupId>
-        <artifactId>mysql-connector-java</artifactId>
-		<version>8.0.28</version>
-	</dependency>
+		<!-- Driver de MySQL (puedes cambiar esto según tu base de datos) -->
+		<dependency>
+			<groupId>mysql</groupId>
+			<artifactId>mysql-connector-java</artifactId>
+			<version>8.0.28</version>
+		</dependency>
 
-    <!-- Spring Boot Starter Web (opcional) -->
-    <dependency>
-        <groupId>org.springframework.boot</groupId>
-        <artifactId>spring-boot-starter-web</artifactId>
-    </dependency>
+		<!-- Spring Boot Starter Web (opcional) -->
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-web</artifactId>
+		</dependency>
+
 	</dependencies>
 
 	<build>
@@ -124,6 +137,8 @@
 					</execution>
 				</executions>
 			</plugin>
+
+		
 		</plugins>
 	</build>
 
