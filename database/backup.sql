@@ -19,6 +19,10 @@
 -- Table structure for table `door_types`
 --
 
+CREATE database casa_deseada;
+
+use casa_deseada;
+
 DROP TABLE IF EXISTS `door_types`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;

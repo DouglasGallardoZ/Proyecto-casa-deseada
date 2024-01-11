@@ -1,0 +1,111 @@
+name: Java CI with Maven and Node.js
+
+on:
+  push:
+    branches: [ "master", "feature/spring*" ]
+  pull_request:
+    branches: [ "master", "develop" ]
+
+jobs:
+  compile_test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Set up JDK 17
+        uses: actions/setup-java@v3
+        with:
+          java-version: '17'
+          distribution: 'temurin'
+          cache: maven
+
+      - name: Compile backend
+        run: mvn -B compile --file ./pom.xml
+        working-directory: ./backend-spring/dreamed-house/
+
+      - name: Tests
+        run: mvn -B test --file ./pom.xml
+        working-directory: ./backend-spring/dreamed-house/  
+
+  build_deploy:
+
+    runs-on: ubuntu-latest
+    if: github.event_name == 'push' && github.event.ref == 'refs/heads/master'
+    needs: compile_test
+    steps:
+    - uses: actions/checkout@v3
+
+    - name: Set up Node.js
+      uses: actions/setup-node@v3
+      with:
+        node-version: '20'
+
+    - name: Install pnpm
+      run: npm install -g pnpm
+
+    - name: Install frontend dependencies
+      run: pnpm install
+      working-directory: ./frontend/
+
+    - name: Build frontend
+      run: pnpm build
+      working-directory: ./frontend/
+
+    - name: Set up JDK 17
+      uses: actions/setup-java@v3
+      with:
+        java-version: '17'
+        distribution: 'temurin'
+        cache: maven
+
+    - name: Build backend
+      run: mvn -B package --file ./pom.xml -DskipTests
+      working-directory: ./backend-spring/dreamed-house/
+
+    - name: Set version variable
+      id: set_version
+      run: |
+        echo "VERSION=$(mvn help:evaluate -Dexpression=project.version -q -DforceStdout)" >> $GITHUB_ENV 
+        echo "Version is $VERSION"
+      working-directory: ./backend-spring/dreamed-house/
+
+    - name: Deploy Github Package
+      run: mvn deploy -s $GITHUB_WORKSPACE/settings.xml -Dmaven.test.skip
+      working-directory: ./backend-spring/dreamed-house/
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}     
+
+    - name: Move JAR Artifact
+      run: |
+        mv ./target/*.jar $GITHUB_WORKSPACE/dreamed-house.jar
+      working-directory: ./backend-spring/dreamed-house/
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+    - name: Upload JAR Artifact
+      uses: actions/upload-artifact@v2
+      with:
+        name: dreamed-house-${{ env.VERSION }}
+        path: ./dreamed-house.jar  
+
+    - name: Deploy to EC2
+      run: |
+        mkdir -p ~/.ssh
+        chmod 700 ~/.ssh
+        chmod 400 ${{ secrets.EC2_PEM_KEY_PATH }}
+        ssh-keyscan -H ${{ secrets.EC2_HOST }} >> ~/.ssh/known_hosts
+        scp -i ${{ secrets.EC2_PEM_KEY_PATH }} $GITHUB_WORKSPACE/dreamed-house.jar ${{ secrets.EC2_USERNAME }}@${{ secrets.EC2_HOST }}:${{ secrets.EC2_DESTINATION_PATH }}
+        ssh -i ${{ secrets.EC2_PEM_KEY_PATH }} ${{ secrets.EC2_USERNAME }}@${{ secrets.EC2_HOST }} 'bash -s' <<'ENDSSH'
+          sudo systemctl restart casa-deseada.service
+        ENDSSH
+           
+      env:
+        EC2_HOST: ${{ secrets.EC2_HOST }}
+        EC2_USERNAME: ${{ secrets.EC2_USERNAME }}           
+
+    - name: Create Release Tag
+      run: |
+        git config --global user.email "douglasgallardoz11@gmail.com"
+        git config --global user.name "Douglas Gallardo"
+        git tag -a v${{ env.VERSION }} -m "Release version ${{ env.VERSION }}"
+        git push origin v${{ env.VERSION }} 
