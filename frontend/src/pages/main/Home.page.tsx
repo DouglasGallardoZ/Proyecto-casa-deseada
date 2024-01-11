@@ -44,7 +44,7 @@ export default function Home(): JSX.Element {
 		<>
 			<PageTitleComponent title="Inicio" />
 
-			<PageTitleComponent title="Lista de casas V2 Editado" />
+			<PageTitleComponent title="Lista de casas" />
 
 			<CardLayoutComponent>
 				<>
