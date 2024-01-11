@@ -31,7 +31,7 @@ jobs:
 
     runs-on: ubuntu-latest
     if: github.event_name == 'push' && github.event.ref == 'refs/heads/master'
-      needs: compile_test
+    needs: compile_test
     steps:
     - uses: actions/checkout@v3
 
