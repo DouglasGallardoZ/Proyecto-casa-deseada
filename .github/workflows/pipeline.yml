@@ -29,6 +29,7 @@ jobs:
       
       - name: SonarCloud Scan
         uses: sonarsource/sonarcloud-github-action@master
+        working-directory: ./backend-spring/dreamed-house/
         with:
           organization: 'DouglasGallardoZ'
           token: ${{ secrets.SONAR_TOKEN }}
