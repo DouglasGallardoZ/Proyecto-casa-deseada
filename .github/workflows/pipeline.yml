@@ -28,6 +28,7 @@ jobs:
         working-directory: ./backend-spring/dreamed-house/  
       
       - name: Sonar analyze
+        working-directory: ./backend-spring/dreamed-house/  
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}  # Needed to get PR information, if any
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
