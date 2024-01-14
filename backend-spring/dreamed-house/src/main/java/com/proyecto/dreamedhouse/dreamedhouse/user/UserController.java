@@ -1,6 +1,7 @@
 package com.proyecto.dreamedhouse.dreamedhouse.user;
 
 import com.proyecto.dreamedhouse.dreamedhouse.JsonUtil;
+import com.proyecto.dreamedhouse.dreamedhouse.dto.UserDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -32,15 +33,16 @@ public class UserController {
     }
 
     @PutMapping("/{userId}")
-    public ResponseEntity<String> putUser(@PathVariable int userId, @RequestBody User user) {
-        if (userId != user.getUserId())
+    public ResponseEntity<String> putUser(@PathVariable int userId, @RequestBody UserDTO userDTO) {
+        if (userId != userDTO.getUserId())
             return new ResponseEntity<>("El usuario no coincide con el ID", HttpStatus.BAD_REQUEST);
 
-        if (userPhoneNumberExists(user.getUserId(), user.getPhoneNumber()) || userEmailExists(user.getUserId(), user.getEmail()))
+        if (userPhoneNumberExists(userDTO.getUserId(), userDTO.getPhoneNumber()) || userEmailExists(userDTO.getUserId(), userDTO.getEmail()))
             return new ResponseEntity<>("Cédula, número de celular o correo electrónico ya registrados", HttpStatus.BAD_REQUEST);
 
-        user.setUpdatedAt(new Date());
+        userDTO.setUpdatedAt(new Date());
 
+        User user = userDTO.getUser();
         userRepository.save(user);
 
         return new ResponseEntity<>(JsonUtil.jsonResponse("Usuario actualizado correctamente"), HttpStatus.OK);
