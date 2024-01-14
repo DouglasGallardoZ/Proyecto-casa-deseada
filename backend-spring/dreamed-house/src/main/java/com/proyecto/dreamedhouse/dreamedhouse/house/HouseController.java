@@ -29,26 +29,5 @@ public class HouseController {
                 .orElse(ResponseEntity.notFound().build());
     }
 
-    /*@GetMapping
-    public ResponseEntity<List<HouseProjection>> getHouses() {
-        List<HouseProjection> houses = houseRepository.findAllProjectedBy();
 
-        if (!houses.isEmpty()) {
-            return new ResponseEntity<>(houses, HttpStatus.OK);
-        } else {
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-        }
-
-    }
-
-    @GetMapping("/{houseId}")
-    public ResponseEntity<HouseProjection> getHouse(@PathVariable Long houseId) {
-        HouseProjection house = houseRepository.findProjectedByHouseId(houseId);
-
-        if (house != null) {
-            return new ResponseEntity<>(house, HttpStatus.OK);
-        } else {
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-        }
-    }*/
 }

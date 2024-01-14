@@ -33,9 +33,6 @@ public class ProformaController {
     @GetMapping("/{userId}")
     public ResponseEntity<?> getProformas(@PathVariable int userId) {
         List<Proforma> proformas = proformaRepository.findByUserId(userId);
-        /*if (proformas.isEmpty()) {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(JsonUtil.jsonResponse("No se encontraron proformas"));
-        }*/
         return ResponseEntity.ok(proformas);
     }
 
