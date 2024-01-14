@@ -2,15 +2,9 @@ name: Java CI with Maven and Node.js
 
 on:
   push:
-    branches:
-      - "feature/*"
-      - "develop"
-      - "master"
+    branches: [ "feature/*", "develop" ]
   pull_request:
-    branches:
-      - "master"
-      - "develop"
-
+    branches: [ "master", "develop" ]
 
 jobs:
   compile_test:
