@@ -2,7 +2,7 @@ name: Java CI with Maven and Node.js
 
 on:
   push:
-    branches: [ "master", "feature/spring*" ]
+    branches: [ "feature/*" ]
   pull_request:
     branches: [ "master", "develop" ]
 
@@ -26,6 +26,14 @@ jobs:
       - name: Tests
         run: mvn -B test --file ./pom.xml
         working-directory: ./backend-spring/dreamed-house/  
+      
+      - name: Sonar analyze
+        working-directory: ./backend-spring/dreamed-house/  
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}  # Needed to get PR information, if any
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+        #run: mvn -B verify org.sonarsource.scanner.maven:sonar-maven-plugin:sonar -Dsonar.projectKey=DouglasGallardoZ_Proyecto-casa-deseada
+        run: mvn -B clean verify sonar:sonar -Dsonar.projectKey=DouglasGallardoZ_Proyecto-casa-deseada
 
   build_deploy:
 
