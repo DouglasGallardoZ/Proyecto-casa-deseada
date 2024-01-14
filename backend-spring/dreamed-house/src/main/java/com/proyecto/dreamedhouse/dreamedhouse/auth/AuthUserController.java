@@ -1,6 +1,7 @@
 package com.proyecto.dreamedhouse.dreamedhouse.auth;
 
 import com.proyecto.dreamedhouse.dreamedhouse.JsonUtil;
+import com.proyecto.dreamedhouse.dreamedhouse.dto.UserDTO;
 import com.proyecto.dreamedhouse.dreamedhouse.user.User;
 import com.proyecto.dreamedhouse.dreamedhouse.user.UserRepository;
 import io.jsonwebtoken.Claims;
@@ -50,22 +51,24 @@ public class AuthUserController {
     }
 
     @PostMapping("/SignUp")
-    public ResponseEntity<String> signUp(@RequestBody User user) {
-        if (userRepository.existsByEmail(user.getEmail())) {
+    public ResponseEntity<String> signUp(@RequestBody UserDTO userDTO) {
+        if (userRepository.existsByEmail(userDTO.getEmail())) {
             return ResponseEntity.badRequest().body("Email already registered");
         }
 
-        if (userRepository.existsByDni(user.getDni())) {
+        if (userRepository.existsByDni(userDTO.getDni())) {
             return ResponseEntity.badRequest().body("DNI already registered");
         }
 
-        if (userRepository.existsByPhoneNumber(user.getPhoneNumber())) {
+        if (userRepository.existsByPhoneNumber(userDTO.getPhoneNumber())) {
             return ResponseEntity.badRequest().body("Phone number already registered");
         }
 
-        user.setPassword(passwordEncoder.encode(user.getPassword()));
-        user.setCreatedAt(new Date());
-        user.setUpdatedAt(new Date());
+        userDTO.setPassword(passwordEncoder.encode(userDTO.getPassword()));
+        userDTO.setCreatedAt(new Date());
+        userDTO.setUpdatedAt(new Date());
+
+        User user = userDTO.getUser();
 
         userRepository.save(user);
 
