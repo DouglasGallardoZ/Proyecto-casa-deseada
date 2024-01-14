@@ -47,11 +47,13 @@ public class UserController {
 
     @PutMapping("Password/{userId}")
     public ResponseEntity<String> putUserPassword(@PathVariable Long userId, @RequestBody ChangePasswordDTO data) {
-        User currentUser = userRepository.getById(userId);
+        Optional<User> optionalUser = userRepository.getById(userId);
 
-        if (currentUser == null) {
+        if (optionalUser.isEmpty()) {
             return ResponseEntity.badRequest().body("Usuario no encontrado");
         }
+
+        User currentUser = optionalUser.get();
 
         if (!validateUserPassword(currentUser, data.getUser().getPassword())) {
             return ResponseEntity.badRequest().body("Contraseña actual no coincide");
