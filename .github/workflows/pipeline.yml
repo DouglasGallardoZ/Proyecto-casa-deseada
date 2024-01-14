@@ -26,6 +26,12 @@ jobs:
       - name: Tests
         run: mvn -B test --file ./pom.xml
         working-directory: ./backend-spring/dreamed-house/  
+      
+      - name: SonarCloud Scan
+        uses: sonarsource/sonarcloud-github-action@master
+        with:
+          organization: 'DouglasGallardoZ'
+          token: ${{ secrets.SONAR_TOKEN }}
 
   build_deploy:
 
