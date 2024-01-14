@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.Date;
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/api/User")
@@ -47,13 +48,7 @@ public class UserController {
 
     @PutMapping("Password/{userId}")
     public ResponseEntity<String> putUserPassword(@PathVariable Long userId, @RequestBody ChangePasswordDTO data) {
-        Optional<User> optionalUser = userRepository.getById(userId);
-
-        if (optionalUser.isEmpty()) {
-            return ResponseEntity.badRequest().body("Usuario no encontrado");
-        }
-
-        User currentUser = optionalUser.get();
+        User currentUser = userRepository.getById(userId);
 
         if (!validateUserPassword(currentUser, data.getUser().getPassword())) {
             return ResponseEntity.badRequest().body("Contraseña actual no coincide");
